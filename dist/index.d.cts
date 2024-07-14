@@ -1,5 +1,4 @@
 import { Program } from 'gimblocks';
-export { Program } from 'gimblocks';
 
 type DeviceBase = {
     transform: Transform;
@@ -9,14 +8,14 @@ type Transform = {
     y: number;
     depth?: number;
 };
-type ChannelCodeGrid = {
+type ChannelCodeGrid<Program> = {
     type: 'channel_radio';
     channel: string;
     blocks: Program;
 };
 type Color = `#${string}`;
 
-type AssignmentCheckpointDevice = DeviceBase & {
+type AssignmentCheckpointDevice<Program> = DeviceBase & {
     type: "assignmentCheckpoint";
     options: {
         action: "set" | "increment" | "decrement";
@@ -26,9 +25,9 @@ type AssignmentCheckpointDevice = DeviceBase & {
     codeGrids: ({
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
-type AssignmentContextDevice = DeviceBase & {
+type AssignmentContextDevice<Program> = DeviceBase & {
     type: "assignmentContext";
     options: {
         objective: string;
@@ -255,7 +254,7 @@ type CosmosModifierDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type CountdownDevice = DeviceBase & {
+type CountdownDevice<Program> = DeviceBase & {
     type: "countdown";
     options: {
         minutes: number;
@@ -338,7 +337,7 @@ type DamageBoostDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type DamagerDevice = DeviceBase & {
+type DamagerDevice<Program> = DeviceBase & {
     type: "damager";
     options: {
         amount: number;
@@ -348,7 +347,7 @@ type DamagerDevice = DeviceBase & {
     codeGrids: ({
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
 type DialogueDevice = DeviceBase & {
     type: "dialogue";
@@ -466,7 +465,7 @@ type CaptureFlagZoneDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type GuiDeviceDevice = DeviceBase & {
+type GuiDeviceDevice<Program> = DeviceBase & {
     type: "guiDevice";
     options: {
         type: "Text" | "Button" | "Tracked Item";
@@ -482,7 +481,7 @@ type GuiDeviceDevice = DeviceBase & {
         showWhenReceivingFromChannel: string;
         hideWhenReceivingFromChannel: string;
     };
-    codeGrids: ChannelCodeGrid[];
+    codeGrids: ChannelCodeGrid<Program>[];
 };
 type HealthGranterDevice = DeviceBase & {
     type: "healthGranter";
@@ -493,7 +492,7 @@ type HealthGranterDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type ImageBillboardDevice = DeviceBase & {
+type ImageBillboardDevice<Program> = DeviceBase & {
     type: "imageBillboard";
     options: {
         imageUrl: string;
@@ -511,9 +510,9 @@ type ImageBillboardDevice = DeviceBase & {
     codeGrids: ({
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
-type InventoryItemManagerDevice = DeviceBase & {
+type InventoryItemManagerDevice<Program> = DeviceBase & {
     type: "inventoryItemManager";
     options: {
         itemId: string | undefined;
@@ -535,7 +534,7 @@ type InventoryItemManagerDevice = DeviceBase & {
         blocks: Program;
     }[];
 };
-type ItemGranterDevice = DeviceBase & {
+type ItemGranterDevice<Program> = DeviceBase & {
     type: "itemGranter";
     options: {
         itemId: string | undefined;
@@ -550,7 +549,7 @@ type ItemGranterDevice = DeviceBase & {
     } | {
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
 type ItemImageDevice = DeviceBase & {
     type: "itemImage";
@@ -579,7 +578,7 @@ type ItemSpawnerDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type KnockoutManagerDevice = DeviceBase & {
+type KnockoutManagerDevice<Program> = DeviceBase & {
     type: "knockoutManager";
     options: {
         target: "player" | "sentry";
@@ -732,7 +731,7 @@ type MusicDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type NotificationDevice = DeviceBase & {
+type NotificationDevice<Program> = DeviceBase & {
     type: "notification";
     options: {
         title: string;
@@ -747,7 +746,7 @@ type NotificationDevice = DeviceBase & {
     codeGrids: ({
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
 type OutlineDevice = DeviceBase & {
     type: "outline";
@@ -809,7 +808,7 @@ type PlayerAppearanceModifierDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type PlayerPositionDetectorDevice = DeviceBase & {
+type PlayerPositionDetectorDevice<Program> = DeviceBase & {
     type: "playerPositionDetector";
     options: {
         whenPositionChangeDetectedTransmitOn: string;
@@ -822,7 +821,7 @@ type PlayerPositionDetectorDevice = DeviceBase & {
         blocks: Program;
     }[];
 };
-type CharacterProximityDevice = DeviceBase & {
+type CharacterProximityDevice<Program> = DeviceBase & {
     type: "characterProximity";
     options: {
         detectionArea: "everywhere" | "zone";
@@ -846,7 +845,7 @@ type CharacterProximityDevice = DeviceBase & {
         blocks: Program;
     })[];
 };
-type TextExplainerDevice = DeviceBase & {
+type TextExplainerDevice<Program> = DeviceBase & {
     type: "textExplainer";
     options: {
         header: string;
@@ -868,7 +867,7 @@ type TextExplainerDevice = DeviceBase & {
     codeGrids: ({
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
 type ProceduralTerrainZoneDevice = DeviceBase & {
     type: "proceduralTerrainZone";
@@ -942,7 +941,7 @@ type PropertyDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type GimkitLiveQuestionDevice = DeviceBase & {
+type GimkitLiveQuestionDevice<Program> = DeviceBase & {
     type: "gimkitLiveQuestion";
     options: {
         kitId: string;
@@ -976,7 +975,7 @@ type GimkitLiveQuestionDevice = DeviceBase & {
     } | {
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
 type RelayDevice = DeviceBase & {
     type: "relay";
@@ -1100,7 +1099,7 @@ type StartingInventoryDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type TagZoneDevice = DeviceBase & {
+type TagZoneDevice<Program> = DeviceBase & {
     type: "tagZone";
     options: {
         taggingTeam: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32" | "33" | "34" | "35" | "36" | "37" | "38" | "39" | "40" | "41" | "42" | "43" | "44" | "45" | "46" | "47" | "48" | "49" | "50" | "51" | "52" | "53" | "54" | "55" | "56" | "57" | "58" | "59" | "60";
@@ -1123,7 +1122,7 @@ type TagZoneDevice = DeviceBase & {
         blocks: Program;
     })[];
 };
-type TeamSettingsDevice = DeviceBase & {
+type TeamSettingsDevice<Program> = DeviceBase & {
     type: "teamSettings";
     options: {
         team: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32" | "33" | "34" | "35" | "36" | "37" | "38" | "39" | "40" | "41" | "42" | "43" | "44" | "45" | "46" | "47" | "48" | "49" | "50" | "51" | "52" | "53" | "54" | "55" | "56" | "57" | "58" | "59" | "60";
@@ -1169,7 +1168,7 @@ type TerrainLayerAppearanceDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type TextBillboardDevice = DeviceBase & {
+type TextBillboardDevice<Program> = DeviceBase & {
     type: "textBillboard";
     options: {
         text: string;
@@ -1188,9 +1187,9 @@ type TextBillboardDevice = DeviceBase & {
     codeGrids: ({
         type: "wire";
         blocks: Program;
-    } | ChannelCodeGrid)[];
+    } | ChannelCodeGrid<Program>)[];
 };
-type TriggerDevice = DeviceBase & {
+type TriggerDevice<Program> = DeviceBase & {
     type: "trigger";
     options: {
         channelToTrigger: string;
@@ -1342,10 +1341,10 @@ type ZoneDevice = DeviceBase & {
     };
     codeGrids: never[];
 };
-type Device = AssignmentCheckpointDevice | AssignmentContextDevice | BackgroundTilesZoneDevice | BallDevice | BallZoneDevice | BarrierDevice | BlockingZoneDevice | ButtonDevice | CameraPointDevice | CameraSizeDevice | CharacterDevice | CheckerDevice | CheckpointDevice | ClassDesignerDevice | CosmosModifierDevice | CountdownDevice | CounterDevice | CraftingRecipeDevice | CraftingTableDevice | DamageBoostDevice | DamagerDevice | DialogueDevice | DialogueActionDevice | DroppedItemDevice | EndGameDevice | EndOfGameWidgetDevice | FlagDevice | CaptureFlagZoneDevice | GuiDeviceDevice | HealthGranterDevice | ImageBillboardDevice | InventoryItemManagerDevice | ItemGranterDevice | ItemImageDevice | ItemSpawnerDevice | KnockoutManagerDevice | LaserBeamDevice | LaserBeamManagerDevice | LifecycleDevice | MapOptionsDevice | MoodDevice | MovementMeterDevice | MusicDevice | NotificationDevice | OutlineDevice | PasswordLockDevice | PlacedStickerDevice | PlayerAppearanceModifierDevice | PlayerPositionDetectorDevice | CharacterProximityDevice | TextExplainerDevice | ProceduralTerrainZoneDevice | ProceduralTerrainZoneZoneInstructionDevice | PropDevice | PropertyDevice | GimkitLiveQuestionDevice | RelayDevice | RepeaterDevice | RespawnDevice | ScorebarDevice | SentryDevice | ShadowDevice | SoundEffectDevice | CharacterSpawnPadDevice | SpeedDevice | StartingInventoryDevice | TagZoneDevice | TeamSettingsDevice | TeamSwitcherDevice | TeleporterDevice | TerrainLayerAppearanceDevice | TextBillboardDevice | TriggerDevice | VendingMachineDevice | VoiceLineDevice | WaypointDevice | WireRepeaterDevice | XpDevice | ZoneDevice;
-type DeviceTypeMap = {
-    assignmentCheckpoint: AssignmentCheckpointDevice;
-    assignmentContext: AssignmentContextDevice;
+type Device$1<Program> = AssignmentCheckpointDevice<Program> | AssignmentContextDevice<Program> | BackgroundTilesZoneDevice | BallDevice | BallZoneDevice | BarrierDevice | BlockingZoneDevice | ButtonDevice | CameraPointDevice | CameraSizeDevice | CharacterDevice | CheckerDevice | CheckpointDevice | ClassDesignerDevice | CosmosModifierDevice | CountdownDevice<Program> | CounterDevice | CraftingRecipeDevice | CraftingTableDevice | DamageBoostDevice | DamagerDevice<Program> | DialogueDevice | DialogueActionDevice | DroppedItemDevice | EndGameDevice | EndOfGameWidgetDevice | FlagDevice | CaptureFlagZoneDevice | GuiDeviceDevice<Program> | HealthGranterDevice | ImageBillboardDevice<Program> | InventoryItemManagerDevice<Program> | ItemGranterDevice<Program> | ItemImageDevice | ItemSpawnerDevice | KnockoutManagerDevice<Program> | LaserBeamDevice | LaserBeamManagerDevice | LifecycleDevice | MapOptionsDevice | MoodDevice | MovementMeterDevice | MusicDevice | NotificationDevice<Program> | OutlineDevice | PasswordLockDevice | PlacedStickerDevice | PlayerAppearanceModifierDevice | PlayerPositionDetectorDevice<Program> | CharacterProximityDevice<Program> | TextExplainerDevice<Program> | ProceduralTerrainZoneDevice | ProceduralTerrainZoneZoneInstructionDevice | PropDevice | PropertyDevice | GimkitLiveQuestionDevice<Program> | RelayDevice | RepeaterDevice | RespawnDevice | ScorebarDevice | SentryDevice | ShadowDevice | SoundEffectDevice | CharacterSpawnPadDevice | SpeedDevice | StartingInventoryDevice | TagZoneDevice<Program> | TeamSettingsDevice<Program> | TeamSwitcherDevice | TeleporterDevice | TerrainLayerAppearanceDevice | TextBillboardDevice<Program> | TriggerDevice<Program> | VendingMachineDevice | VoiceLineDevice | WaypointDevice | WireRepeaterDevice | XpDevice | ZoneDevice;
+type DeviceTypeMap<Program> = {
+    assignmentCheckpoint: AssignmentCheckpointDevice<Program>;
+    assignmentContext: AssignmentContextDevice<Program>;
     backgroundTilesZone: BackgroundTilesZoneDevice;
     ball: BallDevice;
     ballZone: BallZoneDevice;
@@ -1359,12 +1358,12 @@ type DeviceTypeMap = {
     checkpoint: CheckpointDevice;
     classDesigner: ClassDesignerDevice;
     cosmosModifier: CosmosModifierDevice;
-    countdown: CountdownDevice;
+    countdown: CountdownDevice<Program>;
     counter: CounterDevice;
     craftingRecipe: CraftingRecipeDevice;
     craftingTable: CraftingTableDevice;
     damageBoost: DamageBoostDevice;
-    damager: DamagerDevice;
+    damager: DamagerDevice<Program>;
     dialogue: DialogueDevice;
     dialogueAction: DialogueActionDevice;
     droppedItem: DroppedItemDevice;
@@ -1372,14 +1371,14 @@ type DeviceTypeMap = {
     endOfGameWidget: EndOfGameWidgetDevice;
     flag: FlagDevice;
     captureFlagZone: CaptureFlagZoneDevice;
-    guiDevice: GuiDeviceDevice;
+    guiDevice: GuiDeviceDevice<Program>;
     healthGranter: HealthGranterDevice;
-    imageBillboard: ImageBillboardDevice;
-    inventoryItemManager: InventoryItemManagerDevice;
-    itemGranter: ItemGranterDevice;
+    imageBillboard: ImageBillboardDevice<Program>;
+    inventoryItemManager: InventoryItemManagerDevice<Program>;
+    itemGranter: ItemGranterDevice<Program>;
     itemImage: ItemImageDevice;
     itemSpawner: ItemSpawnerDevice;
-    knockoutManager: KnockoutManagerDevice;
+    knockoutManager: KnockoutManagerDevice<Program>;
     laserBeam: LaserBeamDevice;
     laserBeamManager: LaserBeamManagerDevice;
     lifecycle: LifecycleDevice;
@@ -1387,19 +1386,19 @@ type DeviceTypeMap = {
     mood: MoodDevice;
     movementMeter: MovementMeterDevice;
     music: MusicDevice;
-    notification: NotificationDevice;
+    notification: NotificationDevice<Program>;
     outline: OutlineDevice;
     passwordLock: PasswordLockDevice;
     placedSticker: PlacedStickerDevice;
     playerAppearanceModifier: PlayerAppearanceModifierDevice;
-    playerPositionDetector: PlayerPositionDetectorDevice;
-    characterProximity: CharacterProximityDevice;
-    textExplainer: TextExplainerDevice;
+    playerPositionDetector: PlayerPositionDetectorDevice<Program>;
+    characterProximity: CharacterProximityDevice<Program>;
+    textExplainer: TextExplainerDevice<Program>;
     proceduralTerrainZone: ProceduralTerrainZoneDevice;
     proceduralTerrainZoneZoneInstruction: ProceduralTerrainZoneZoneInstructionDevice;
     prop: PropDevice;
     property: PropertyDevice;
-    gimkitLiveQuestion: GimkitLiveQuestionDevice;
+    gimkitLiveQuestion: GimkitLiveQuestionDevice<Program>;
     relay: RelayDevice;
     repeater: RepeaterDevice;
     respawn: RespawnDevice;
@@ -1410,13 +1409,13 @@ type DeviceTypeMap = {
     characterSpawnPad: CharacterSpawnPadDevice;
     speed: SpeedDevice;
     startingInventory: StartingInventoryDevice;
-    tagZone: TagZoneDevice;
-    teamSettings: TeamSettingsDevice;
+    tagZone: TagZoneDevice<Program>;
+    teamSettings: TeamSettingsDevice<Program>;
     teamSwitcher: TeamSwitcherDevice;
     teleporter: TeleporterDevice;
     terrainLayerAppearance: TerrainLayerAppearanceDevice;
-    textBillboard: TextBillboardDevice;
-    trigger: TriggerDevice;
+    textBillboard: TextBillboardDevice<Program>;
+    trigger: TriggerDevice<Program>;
     vendingMachine: VendingMachineDevice;
     voiceLine: VoiceLineDevice;
     waypoint: WaypointDevice;
@@ -1424,18 +1423,16 @@ type DeviceTypeMap = {
     xp: XpDevice;
     zone: ZoneDevice;
 };
-declare const defaultDeviceOptions: Record<string, Device["options"]>;
 
-declare function getDefaultDeviceOptions(id: keyof DeviceTypeMap): DeviceTypeMap[keyof DeviceTypeMap]['options'];
-
-type Build = {
+type Build$1<Program> = {
     positionType: 'relative' | 'absolute';
-    devices: Device[];
+    devices: Device$1<Program>[];
     name?: string;
 };
+
 declare class TransformBuilder {
     private transform;
-    constructor();
+    constructor(x?: number, y?: number);
     x(x: number): this;
     y(y: number): this;
     depth(depth: number): this;
@@ -1445,28 +1442,38 @@ declare class TransformBuilder {
     negative(): this;
     build(): Transform;
 }
-declare class DeviceBuilder<T extends keyof DeviceTypeMap> {
+declare class DeviceBuilder$1<Program, T extends keyof DeviceTypeMap<Program>> {
     private device;
     constructor(deviceType: T);
     transform(transform: Transform | TransformBuilder): this;
-    options(options: Partial<DeviceTypeMap[T]['options']>): this;
-    setOption<K extends keyof DeviceTypeMap[T]['options']>(key: K, value: DeviceTypeMap[T]['options'][K]): this;
-    codeGrids(codeGrids: DeviceTypeMap[T]['codeGrids']): this;
-    addCodeGrid(codeGrid: DeviceTypeMap[T]['codeGrids'][number]): this;
-    addTrigger(type: EnsureTriggerType<DeviceTypeMap[T]['codeGrids'][number]['type']>, blocks: Program): this;
-    addChannel(channel: EnsureHasChannel<T, string>, blocks: Program): this;
-    build(): DeviceTypeMap[T];
+    options(options: Partial<DeviceTypeMap<Program>[T]['options']>): this;
+    setOption<K extends keyof DeviceTypeMap<Program>[T]['options']>(key: K, value: DeviceTypeMap<Program>[T]['options'][K]): this;
+    addCodeGrid(codeGrid: DeviceTypeMap<Program>[T]['codeGrids'][number]): this;
+    addTriggerCodeGrid(type: EnsureTriggerType<DeviceTypeMap<Program>[T]['codeGrids'][number]['type']>, blocks: Program): this;
+    addChannelCodeGrid(channel: EnsureHasChannel<Program, T, string>, blocks: Program): this;
+    build(): DeviceTypeMap<Program>[T];
 }
 type EnsureTriggerType<T> = T extends 'channel_radio' ? never : T extends never ? never : T;
-type EnsureHasChannel<T extends keyof DeviceTypeMap, U> = 'channel_radio' extends DeviceTypeMap[T]['codeGrids'][number]['type'] ? U : never;
-declare class BuildBuilder {
+type EnsureHasChannel<Program, T extends keyof DeviceTypeMap<Program>, U> = 'channel_radio' extends DeviceTypeMap<Program>[T]['codeGrids'][number]['type'] ? U : never;
+declare class BuildBuilder$1<Program> {
     private _build;
     constructor(positionType: 'relative' | 'absolute');
     name(name: string): this;
-    devices(devices: Device[]): this;
-    addDevice<T extends keyof DeviceTypeMap>(device: DeviceTypeMap[T] | DeviceBuilder<T>): this;
-    build(): Build;
+    devices(devices: Device$1<Program>[]): this;
+    addDevice<T extends keyof DeviceTypeMap<Program>>(device: DeviceTypeMap<Program>[T] | DeviceBuilder$1<Program, T>): this;
+    build(): Build$1<Program>;
 }
-declare function build(positionType: 'relative' | 'absolute', devices: Device[], name?: string): Build;
 
-export { AssignmentCheckpointDevice, AssignmentContextDevice, BackgroundTilesZoneDevice, BallDevice, BallZoneDevice, BarrierDevice, BlockingZoneDevice, Build, BuildBuilder, ButtonDevice, CameraPointDevice, CameraSizeDevice, CaptureFlagZoneDevice, ChannelCodeGrid, CharacterDevice, CharacterProximityDevice, CharacterSpawnPadDevice, CheckerDevice, CheckpointDevice, ClassDesignerDevice, Color, CosmosModifierDevice, CountdownDevice, CounterDevice, CraftingRecipeDevice, CraftingTableDevice, DamageBoostDevice, DamagerDevice, Device, DeviceBase, DeviceBuilder, DeviceTypeMap, DialogueActionDevice, DialogueDevice, DroppedItemDevice, EndGameDevice, EndOfGameWidgetDevice, FlagDevice, GimkitLiveQuestionDevice, GuiDeviceDevice, HealthGranterDevice, ImageBillboardDevice, InventoryItemManagerDevice, ItemGranterDevice, ItemImageDevice, ItemSpawnerDevice, KnockoutManagerDevice, LaserBeamDevice, LaserBeamManagerDevice, LifecycleDevice, MapOptionsDevice, MoodDevice, MovementMeterDevice, MusicDevice, NotificationDevice, OutlineDevice, PasswordLockDevice, PlacedStickerDevice, PlayerAppearanceModifierDevice, PlayerPositionDetectorDevice, ProceduralTerrainZoneDevice, ProceduralTerrainZoneZoneInstructionDevice, PropDevice, PropertyDevice, RelayDevice, RepeaterDevice, RespawnDevice, ScorebarDevice, SentryDevice, ShadowDevice, SoundEffectDevice, SpeedDevice, StartingInventoryDevice, TagZoneDevice, TeamSettingsDevice, TeamSwitcherDevice, TeleporterDevice, TerrainLayerAppearanceDevice, TextBillboardDevice, TextExplainerDevice, Transform, TransformBuilder, TriggerDevice, VendingMachineDevice, VoiceLineDevice, WaypointDevice, WireRepeaterDevice, XpDevice, ZoneDevice, build, defaultDeviceOptions, getDefaultDeviceOptions };
+type Build = Build$1<Program>;
+type Device = Device$1<Program>;
+declare class DeviceBuilder<T extends keyof DeviceTypeMap<Program>> extends DeviceBuilder$1<Program, T> {
+    constructor(deviceType: T);
+}
+declare class BuildBuilder extends BuildBuilder$1<Program> {
+    constructor(positionType: 'relative' | 'absolute');
+}
+declare function transform(x?: number, y?: number): TransformBuilder;
+declare function device<T extends keyof DeviceTypeMap<Program>>(deviceType: T): DeviceBuilder<T>;
+declare function build(positionType: 'relative' | 'absolute'): BuildBuilder;
+
+export { Build, BuildBuilder, BuildBuilder$1 as BuildBuilderGeneric, Device, DeviceBuilder, DeviceBuilder$1 as DeviceBuilderGeneric, Transform, TransformBuilder, build, device, transform };

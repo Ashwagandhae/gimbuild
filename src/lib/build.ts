@@ -1,10 +1,14 @@
-import { Program } from 'gimblocks';
+import type { Program } from 'gimblocks';
 import { DeviceTypeMap } from './device';
 
 import {
   BuildBuilder as BuildBuilderGeneric,
   DeviceBuilder as DeviceBuilderGeneric,
   TransformBuilder,
+} from './builder';
+export {
+  DeviceBuilder as DeviceBuilderGeneric,
+  BuildBuilder as BuildBuilderGeneric,
 } from './builder';
 import { Build as BuildGeneric, Device as DeviceGeneric } from './buildType';
 

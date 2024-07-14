@@ -3,7 +3,6 @@
  * @description Creates gimbuild builds in-game
  * @author Ashwagandhae
  * @version 0.0.1
- * @reloadRequired true
  * @isLibrary true
  */
 let gimkitInternalSend = GL.stores.network.room.send;
@@ -419,7 +418,7 @@ class BuildError extends Error {
         this.deviceErrors = deviceErrors;
     }
 }
-async function build(build, position) {
+async function build(build, position = { x: 16000, y: 16000 }) {
     let deviceIds = [];
     if (build.positionType === 'absolute') {
         position = { x: 0, y: 0 };
@@ -522,6 +521,30 @@ function unbuild(unbuilder) {
 function timeoutPromise(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
+build({
+    positionType: 'absolute',
+    devices: [
+        {
+            type: 'textBillboard',
+            transform: { x: 16000, y: 16000 },
+            options: {
+                text: 'hello world',
+                fontSize: 21,
+                scope: 'global',
+                googleFont: 'Roboto',
+                color: '#FF0000',
+                alpha: 1,
+                strokeThickness: 0,
+                strokeColor: '#000000',
+                rotation: 0,
+                visibleOnGameStart: 'Yes',
+                showWhenReceivingFrom: '',
+                hideWhenReceivingFrom: '',
+            },
+            codeGrids: [],
+        },
+    ],
+});
 
 /// <reference types='gimloader' />
 function onStop() {

@@ -20,12 +20,14 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  BuildBuilder: () => BuildBuilder,
-  DeviceBuilder: () => DeviceBuilder,
+  BuildBuilder: () => BuildBuilder2,
+  BuildBuilderGeneric: () => BuildBuilder,
+  DeviceBuilder: () => DeviceBuilder2,
+  DeviceBuilderGeneric: () => DeviceBuilder,
   TransformBuilder: () => TransformBuilder,
   build: () => build,
-  defaultDeviceOptions: () => defaultDeviceOptions,
-  getDefaultDeviceOptions: () => getDefaultDeviceOptions
+  device: () => device,
+  transform: () => transform
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -946,11 +948,11 @@ function getDefaultDeviceOptions(id) {
   return defaultDeviceOptions[id];
 }
 
-// src/lib/build.ts
+// src/lib/builder.ts
 var TransformBuilder = class {
   transform;
-  constructor() {
-    this.transform = { x: 0, y: 0 };
+  constructor(x = 0, y = 0) {
+    this.transform = { x, y };
   }
   x(x) {
     this.transform.x = x;
@@ -972,9 +974,9 @@ var TransformBuilder = class {
     this.transform.y += y;
     return this;
   }
-  add(transform) {
-    this.transform.x += transform.x;
-    this.transform.y += transform.y;
+  add(transform2) {
+    this.transform.x += transform2.x;
+    this.transform.y += transform2.y;
     return this;
   }
   negative() {
@@ -986,16 +988,24 @@ var TransformBuilder = class {
     return this.transform;
   }
 };
+function defaultDeviceForType(type) {
+  return {
+    type,
+    transform: { x: 0, y: 0 },
+    options: getDefaultDeviceOptions(type),
+    codeGrids: []
+  };
+}
 var DeviceBuilder = class {
   device;
   constructor(deviceType) {
     this.device = defaultDeviceForType(deviceType);
   }
-  transform(transform) {
-    if (transform instanceof TransformBuilder) {
-      this.device.transform = transform.build();
+  transform(transform2) {
+    if (transform2 instanceof TransformBuilder) {
+      this.device.transform = transform2.build();
     } else {
-      this.device.transform = transform;
+      this.device.transform = transform2;
     }
     return this;
   }
@@ -1007,19 +1017,15 @@ var DeviceBuilder = class {
     this.device.options[key] = value;
     return this;
   }
-  codeGrids(codeGrids) {
-    this.device.codeGrids = codeGrids;
-    return this;
-  }
   addCodeGrid(codeGrid) {
     this.device.codeGrids.push(codeGrid);
     return this;
   }
-  addTrigger(type, blocks) {
+  addTriggerCodeGrid(type, blocks) {
     this.device.codeGrids.push({ type, blocks });
     return this;
   }
-  addChannel(channel, blocks) {
+  addChannelCodeGrid(channel, blocks) {
     this.device.codeGrids.push({
       type: "channel_radio",
       channel: channel.toString(),
@@ -1044,11 +1050,11 @@ var BuildBuilder = class {
     this._build.devices = devices;
     return this;
   }
-  addDevice(device) {
-    if (device instanceof DeviceBuilder) {
-      this._build.devices.push(device.build());
+  addDevice(device2) {
+    if (device2 instanceof DeviceBuilder) {
+      this._build.devices.push(device2.build());
     } else {
-      this._build.devices.push(device);
+      this._build.devices.push(device2);
     }
     return this;
   }
@@ -1056,27 +1062,35 @@ var BuildBuilder = class {
     return this._build;
   }
 };
-function defaultDeviceForType(type) {
-  return {
-    type,
-    transform: { x: 0, y: 0 },
-    options: getDefaultDeviceOptions(type),
-    codeGrids: []
-  };
-}
-function build(positionType, devices, name) {
-  let ret = { positionType, devices };
-  if (name) {
-    return { ...ret, name };
+
+// src/lib/build.ts
+var DeviceBuilder2 = class extends DeviceBuilder {
+  constructor(deviceType) {
+    super(deviceType);
   }
-  return ret;
+};
+var BuildBuilder2 = class extends BuildBuilder {
+  constructor(positionType) {
+    super(positionType);
+  }
+};
+function transform(x = 0, y = 0) {
+  return new TransformBuilder(x, y);
+}
+function device(deviceType) {
+  return new DeviceBuilder2(deviceType);
+}
+function build(positionType) {
+  return new BuildBuilder2(positionType);
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BuildBuilder,
+  BuildBuilderGeneric,
   DeviceBuilder,
+  DeviceBuilderGeneric,
   TransformBuilder,
   build,
-  defaultDeviceOptions,
-  getDefaultDeviceOptions
+  device,
+  transform
 });

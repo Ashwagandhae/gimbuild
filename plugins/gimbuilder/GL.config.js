@@ -13,7 +13,6 @@ export default {
   author: 'Ashwagandhae',
   version: pkg.version,
   isLibrary: true,
-  reloadRequired: true,
   plugins: [
     resolve(),
     commonjs(),
