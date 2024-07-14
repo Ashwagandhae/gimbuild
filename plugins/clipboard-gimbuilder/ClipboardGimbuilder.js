@@ -22,9 +22,9 @@ function getClipboardData() {
       });
   });
 }
-const buildCommand = new Set(['meta', 'b']);
-const unbuildCommand = new Set(['meta', 'shift', 'b']);
-const replaceCommand = new Set(['meta', 'alt', 'b']);
+const buildCommand = new Set(['shift', 'b']);
+const unbuildCommand = new Set(['alt', 'b']);
+const replaceCommand = new Set(['alt', 'shift', 'b']);
 
 GL.hotkeys.add(buildCommand, build);
 GL.hotkeys.add(unbuildCommand, unbuild);
@@ -42,7 +42,10 @@ async function build() {
     console.error('Invalid clipboard data');
     return;
   }
-  let res = await GL.lib('Gimbuilder').build(parsed);
+  let res = await GL.lib('Gimbuilder').build(
+    parsed,
+    GL.stores.phaser.mainCharacter.body
+  );
   if (res.ok) {
     window.gimbuilds.push(res.val);
     console.log('Gimbuild created');
