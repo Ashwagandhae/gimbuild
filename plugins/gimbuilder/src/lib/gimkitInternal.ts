@@ -45,19 +45,16 @@ const sendKeys = {
 export let gimkitInternalSend: (
   A: (typeof sendKeys)[keyof typeof sendKeys],
   t: any
-) => void;
+) => void = GL.stores.network.room.send;
 
-GL.parcel.interceptRequire(
-  'Gimbuild',
-  (exports) => {
-    return (
-      typeof exports?.default == 'function' &&
-      exports.default.toString().includes('.send(') &&
-      exports.default.toString().includes('(A,t)=>')
-    );
-  },
-  (exports) => {
-    console.log('loaded send', exports.default.toString());
-    gimkitInternalSend = exports.default;
+export type DeviceId = string & { readonly DeviceId: unique symbol };
+export function generateDeviceId(): DeviceId {
+  const chars =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
+  let uniqueId = '';
+  for (let i = 0; i < 21; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    uniqueId += chars[randomIndex];
   }
-);
+  return uniqueId as DeviceId;
+}

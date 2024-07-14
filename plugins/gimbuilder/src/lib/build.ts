@@ -1,5 +1,9 @@
 import type { Build, Device, Program } from 'gimbuild';
-import { gimkitInternalSend } from './gimkitInternal';
+import {
+  DeviceId,
+  generateDeviceId,
+  gimkitInternalSend,
+} from './gimkitInternal';
 import { Ok, Err, Result } from 'ts-results';
 
 export type Unbuilder = {
@@ -18,7 +22,7 @@ class BuildError extends Error {
 
 export async function build(
   build: Build,
-  position: { x: number; y: number }
+  position: { x: number; y: number } = { x: 16000, y: 16000 }
 ): Promise<Result<Unbuilder, BuildError>> {
   let deviceIds: DeviceId[] = [];
   if (build.positionType === 'absolute') {
@@ -85,7 +89,10 @@ async function buildDevice(
 }
 
 class BuildCodeGridError extends Error {
-  constructor(public message: string, public codeGrid: CodeGridBuild) {
+  constructor(
+    public message: string,
+    public codeGrid: CodeGridBuild
+  ) {
     super(message);
   }
 }
@@ -149,14 +156,27 @@ function timeoutPromise(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export type DeviceId = string & { readonly DeviceId: unique symbol };
-export function generateDeviceId(): DeviceId {
-  const chars =
-    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
-  let uniqueId = '';
-  for (let i = 0; i < 21; i++) {
-    const randomIndex = Math.floor(Math.random() * chars.length);
-    uniqueId += chars[randomIndex];
-  }
-  return uniqueId as DeviceId;
-}
+build({
+  positionType: 'absolute',
+  devices: [
+    {
+      type: 'textBillboard',
+      transform: { x: 16000, y: 16000 },
+      options: {
+        text: 'hello world',
+        fontSize: 21,
+        scope: 'global',
+        googleFont: 'Roboto',
+        color: '#FF0000',
+        alpha: 1,
+        strokeThickness: 0,
+        strokeColor: '#000000',
+        rotation: 0,
+        visibleOnGameStart: 'Yes',
+        showWhenReceivingFrom: '',
+        hideWhenReceivingFrom: '',
+      },
+      codeGrids: [],
+    },
+  ],
+});

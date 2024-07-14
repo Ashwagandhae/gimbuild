@@ -6,15 +6,16 @@
  * @reloadRequired true
  * @isLibrary true
  */
-let gimkitInternalSend;
-GL.parcel.interceptRequire('Gimbuild', (exports) => {
-    return (typeof exports?.default == 'function' &&
-        exports.default.toString().includes('.send(') &&
-        exports.default.toString().includes('(A,t)=>'));
-}, (exports) => {
-    console.log('loaded send', exports.default.toString());
-    gimkitInternalSend = exports.default;
-});
+let gimkitInternalSend = GL.stores.network.room.send;
+function generateDeviceId() {
+    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
+    let uniqueId = '';
+    for (let i = 0; i < 21; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        uniqueId += chars[randomIndex];
+    }
+    return uniqueId;
+}
 
 function toString(val) {
     var value = String(val);
@@ -521,19 +522,10 @@ function unbuild(unbuilder) {
 function timeoutPromise(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
-function generateDeviceId() {
-    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
-    let uniqueId = '';
-    for (let i = 0; i < 21; i++) {
-        const randomIndex = Math.floor(Math.random() * chars.length);
-        uniqueId += chars[randomIndex];
-    }
-    return uniqueId;
-}
 
 /// <reference types='gimloader' />
 function onStop() {
     GL.parcel.stopIntercepts('Gimbuild');
 }
 
-export { build, generateDeviceId, gimkitInternalSend, onStop, unbuild };
+export { build, gimkitInternalSend, onStop, unbuild };
