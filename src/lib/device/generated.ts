@@ -1,5 +1,5 @@
-import { DeviceBase, ChannelCodeGrid, Program, Color } from "./basic";
-export type AssignmentCheckpointDevice = DeviceBase & {
+import { DeviceBase, ChannelCodeGrid, Color } from "./basic";
+export type AssignmentCheckpointDevice<Program> = DeviceBase & {
   type: "assignmentCheckpoint";
   options: {
     action: "set" | "increment" | "decrement";
@@ -11,10 +11,10 @@ export type AssignmentCheckpointDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
-export type AssignmentContextDevice = DeviceBase & {
+export type AssignmentContextDevice<Program> = DeviceBase & {
   type: "assignmentContext";
   options: { objective: string };
   codeGrids: {
@@ -242,7 +242,7 @@ export type CosmosModifierDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type CountdownDevice = DeviceBase & {
+export type CountdownDevice<Program> = DeviceBase & {
   type: "countdown";
   options: {
     minutes: number;
@@ -378,7 +378,7 @@ export type DamageBoostDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type DamagerDevice = DeviceBase & {
+export type DamagerDevice<Program> = DeviceBase & {
   type: "damager";
   options: {
     amount: number;
@@ -390,7 +390,7 @@ export type DamagerDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
 export type DialogueDevice = DeviceBase & {
@@ -596,7 +596,7 @@ export type CaptureFlagZoneDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type GuiDeviceDevice = DeviceBase & {
+export type GuiDeviceDevice<Program> = DeviceBase & {
   type: "guiDevice";
   options: {
     type: "Text" | "Button" | "Tracked Item";
@@ -612,7 +612,7 @@ export type GuiDeviceDevice = DeviceBase & {
     showWhenReceivingFromChannel: string;
     hideWhenReceivingFromChannel: string;
   };
-  codeGrids: ChannelCodeGrid[];
+  codeGrids: ChannelCodeGrid<Program>[];
 };
 export type HealthGranterDevice = DeviceBase & {
   type: "healthGranter";
@@ -623,7 +623,7 @@ export type HealthGranterDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type ImageBillboardDevice = DeviceBase & {
+export type ImageBillboardDevice<Program> = DeviceBase & {
   type: "imageBillboard";
   options: {
     imageUrl: string;
@@ -651,10 +651,10 @@ export type ImageBillboardDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
-export type InventoryItemManagerDevice = DeviceBase & {
+export type InventoryItemManagerDevice<Program> = DeviceBase & {
   type: "inventoryItemManager";
   options: {
     itemId: string | undefined;
@@ -676,7 +676,7 @@ export type InventoryItemManagerDevice = DeviceBase & {
     blocks: Program;
   }[];
 };
-export type ItemGranterDevice = DeviceBase & {
+export type ItemGranterDevice<Program> = DeviceBase & {
   type: "itemGranter";
   options: {
     itemId: string | undefined;
@@ -694,7 +694,7 @@ export type ItemGranterDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
 export type ItemImageDevice = DeviceBase & {
@@ -735,7 +735,7 @@ export type ItemSpawnerDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type KnockoutManagerDevice = DeviceBase & {
+export type KnockoutManagerDevice<Program> = DeviceBase & {
   type: "knockoutManager";
   options: {
     target: "player" | "sentry";
@@ -1018,7 +1018,7 @@ export type MusicDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type NotificationDevice = DeviceBase & {
+export type NotificationDevice<Program> = DeviceBase & {
   type: "notification";
   options: {
     title: string;
@@ -1043,7 +1043,7 @@ export type NotificationDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
 export type OutlineDevice = DeviceBase & {
@@ -1106,7 +1106,7 @@ export type PlayerAppearanceModifierDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type PlayerPositionDetectorDevice = DeviceBase & {
+export type PlayerPositionDetectorDevice<Program> = DeviceBase & {
   type: "playerPositionDetector";
   options: {
     whenPositionChangeDetectedTransmitOn: string;
@@ -1119,7 +1119,7 @@ export type PlayerPositionDetectorDevice = DeviceBase & {
     blocks: Program;
   }[];
 };
-export type CharacterProximityDevice = DeviceBase & {
+export type CharacterProximityDevice<Program> = DeviceBase & {
   type: "characterProximity";
   options: {
     detectionArea: "everywhere" | "zone";
@@ -1146,7 +1146,7 @@ export type CharacterProximityDevice = DeviceBase & {
       }
   )[];
 };
-export type TextExplainerDevice = DeviceBase & {
+export type TextExplainerDevice<Program> = DeviceBase & {
   type: "textExplainer";
   options: {
     header: string;
@@ -1185,7 +1185,7 @@ export type TextExplainerDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
 export type ProceduralTerrainZoneDevice = DeviceBase & {
@@ -1274,7 +1274,7 @@ export type PropertyDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type GimkitLiveQuestionDevice = DeviceBase & {
+export type GimkitLiveQuestionDevice<Program> = DeviceBase & {
   type: "gimkitLiveQuestion";
   options: {
     kitId: string;
@@ -1312,7 +1312,7 @@ export type GimkitLiveQuestionDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
 export type RelayDevice = DeviceBase & {
@@ -1872,7 +1872,7 @@ export type StartingInventoryDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type TagZoneDevice = DeviceBase & {
+export type TagZoneDevice<Program> = DeviceBase & {
   type: "tagZone";
   options: {
     taggingTeam:
@@ -1958,7 +1958,7 @@ export type TagZoneDevice = DeviceBase & {
       }
   )[];
 };
-export type TeamSettingsDevice = DeviceBase & {
+export type TeamSettingsDevice<Program> = DeviceBase & {
   type: "teamSettings";
   options: {
     team:
@@ -2305,7 +2305,7 @@ export type TerrainLayerAppearanceDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type TextBillboardDevice = DeviceBase & {
+export type TextBillboardDevice<Program> = DeviceBase & {
   type: "textBillboard";
   options: {
     text: string;
@@ -2341,10 +2341,10 @@ export type TextBillboardDevice = DeviceBase & {
         type: "wire";
         blocks: Program;
       }
-    | ChannelCodeGrid
+    | ChannelCodeGrid<Program>
   )[];
 };
-export type TriggerDevice = DeviceBase & {
+export type TriggerDevice<Program> = DeviceBase & {
   type: "trigger";
   options: {
     channelToTrigger: string;
@@ -2686,9 +2686,9 @@ export type ZoneDevice = DeviceBase & {
   };
   codeGrids: never[];
 };
-export type Device =
-  | AssignmentCheckpointDevice
-  | AssignmentContextDevice
+export type Device<Program> =
+  | AssignmentCheckpointDevice<Program>
+  | AssignmentContextDevice<Program>
   | BackgroundTilesZoneDevice
   | BallDevice
   | BallZoneDevice
@@ -2702,12 +2702,12 @@ export type Device =
   | CheckpointDevice
   | ClassDesignerDevice
   | CosmosModifierDevice
-  | CountdownDevice
+  | CountdownDevice<Program>
   | CounterDevice
   | CraftingRecipeDevice
   | CraftingTableDevice
   | DamageBoostDevice
-  | DamagerDevice
+  | DamagerDevice<Program>
   | DialogueDevice
   | DialogueActionDevice
   | DroppedItemDevice
@@ -2715,14 +2715,14 @@ export type Device =
   | EndOfGameWidgetDevice
   | FlagDevice
   | CaptureFlagZoneDevice
-  | GuiDeviceDevice
+  | GuiDeviceDevice<Program>
   | HealthGranterDevice
-  | ImageBillboardDevice
-  | InventoryItemManagerDevice
-  | ItemGranterDevice
+  | ImageBillboardDevice<Program>
+  | InventoryItemManagerDevice<Program>
+  | ItemGranterDevice<Program>
   | ItemImageDevice
   | ItemSpawnerDevice
-  | KnockoutManagerDevice
+  | KnockoutManagerDevice<Program>
   | LaserBeamDevice
   | LaserBeamManagerDevice
   | LifecycleDevice
@@ -2730,19 +2730,19 @@ export type Device =
   | MoodDevice
   | MovementMeterDevice
   | MusicDevice
-  | NotificationDevice
+  | NotificationDevice<Program>
   | OutlineDevice
   | PasswordLockDevice
   | PlacedStickerDevice
   | PlayerAppearanceModifierDevice
-  | PlayerPositionDetectorDevice
-  | CharacterProximityDevice
-  | TextExplainerDevice
+  | PlayerPositionDetectorDevice<Program>
+  | CharacterProximityDevice<Program>
+  | TextExplainerDevice<Program>
   | ProceduralTerrainZoneDevice
   | ProceduralTerrainZoneZoneInstructionDevice
   | PropDevice
   | PropertyDevice
-  | GimkitLiveQuestionDevice
+  | GimkitLiveQuestionDevice<Program>
   | RelayDevice
   | RepeaterDevice
   | RespawnDevice
@@ -2753,22 +2753,22 @@ export type Device =
   | CharacterSpawnPadDevice
   | SpeedDevice
   | StartingInventoryDevice
-  | TagZoneDevice
-  | TeamSettingsDevice
+  | TagZoneDevice<Program>
+  | TeamSettingsDevice<Program>
   | TeamSwitcherDevice
   | TeleporterDevice
   | TerrainLayerAppearanceDevice
-  | TextBillboardDevice
-  | TriggerDevice
+  | TextBillboardDevice<Program>
+  | TriggerDevice<Program>
   | VendingMachineDevice
   | VoiceLineDevice
   | WaypointDevice
   | WireRepeaterDevice
   | XpDevice
   | ZoneDevice;
-export type DeviceTypeMap = {
-  assignmentCheckpoint: AssignmentCheckpointDevice;
-  assignmentContext: AssignmentContextDevice;
+export type DeviceTypeMap<Program> = {
+  assignmentCheckpoint: AssignmentCheckpointDevice<Program>;
+  assignmentContext: AssignmentContextDevice<Program>;
   backgroundTilesZone: BackgroundTilesZoneDevice;
   ball: BallDevice;
   ballZone: BallZoneDevice;
@@ -2782,12 +2782,12 @@ export type DeviceTypeMap = {
   checkpoint: CheckpointDevice;
   classDesigner: ClassDesignerDevice;
   cosmosModifier: CosmosModifierDevice;
-  countdown: CountdownDevice;
+  countdown: CountdownDevice<Program>;
   counter: CounterDevice;
   craftingRecipe: CraftingRecipeDevice;
   craftingTable: CraftingTableDevice;
   damageBoost: DamageBoostDevice;
-  damager: DamagerDevice;
+  damager: DamagerDevice<Program>;
   dialogue: DialogueDevice;
   dialogueAction: DialogueActionDevice;
   droppedItem: DroppedItemDevice;
@@ -2795,14 +2795,14 @@ export type DeviceTypeMap = {
   endOfGameWidget: EndOfGameWidgetDevice;
   flag: FlagDevice;
   captureFlagZone: CaptureFlagZoneDevice;
-  guiDevice: GuiDeviceDevice;
+  guiDevice: GuiDeviceDevice<Program>;
   healthGranter: HealthGranterDevice;
-  imageBillboard: ImageBillboardDevice;
-  inventoryItemManager: InventoryItemManagerDevice;
-  itemGranter: ItemGranterDevice;
+  imageBillboard: ImageBillboardDevice<Program>;
+  inventoryItemManager: InventoryItemManagerDevice<Program>;
+  itemGranter: ItemGranterDevice<Program>;
   itemImage: ItemImageDevice;
   itemSpawner: ItemSpawnerDevice;
-  knockoutManager: KnockoutManagerDevice;
+  knockoutManager: KnockoutManagerDevice<Program>;
   laserBeam: LaserBeamDevice;
   laserBeamManager: LaserBeamManagerDevice;
   lifecycle: LifecycleDevice;
@@ -2810,19 +2810,19 @@ export type DeviceTypeMap = {
   mood: MoodDevice;
   movementMeter: MovementMeterDevice;
   music: MusicDevice;
-  notification: NotificationDevice;
+  notification: NotificationDevice<Program>;
   outline: OutlineDevice;
   passwordLock: PasswordLockDevice;
   placedSticker: PlacedStickerDevice;
   playerAppearanceModifier: PlayerAppearanceModifierDevice;
-  playerPositionDetector: PlayerPositionDetectorDevice;
-  characterProximity: CharacterProximityDevice;
-  textExplainer: TextExplainerDevice;
+  playerPositionDetector: PlayerPositionDetectorDevice<Program>;
+  characterProximity: CharacterProximityDevice<Program>;
+  textExplainer: TextExplainerDevice<Program>;
   proceduralTerrainZone: ProceduralTerrainZoneDevice;
   proceduralTerrainZoneZoneInstruction: ProceduralTerrainZoneZoneInstructionDevice;
   prop: PropDevice;
   property: PropertyDevice;
-  gimkitLiveQuestion: GimkitLiveQuestionDevice;
+  gimkitLiveQuestion: GimkitLiveQuestionDevice<Program>;
   relay: RelayDevice;
   repeater: RepeaterDevice;
   respawn: RespawnDevice;
@@ -2833,13 +2833,13 @@ export type DeviceTypeMap = {
   characterSpawnPad: CharacterSpawnPadDevice;
   speed: SpeedDevice;
   startingInventory: StartingInventoryDevice;
-  tagZone: TagZoneDevice;
-  teamSettings: TeamSettingsDevice;
+  tagZone: TagZoneDevice<Program>;
+  teamSettings: TeamSettingsDevice<Program>;
   teamSwitcher: TeamSwitcherDevice;
   teleporter: TeleporterDevice;
   terrainLayerAppearance: TerrainLayerAppearanceDevice;
-  textBillboard: TextBillboardDevice;
-  trigger: TriggerDevice;
+  textBillboard: TextBillboardDevice<Program>;
+  trigger: TriggerDevice<Program>;
   vendingMachine: VendingMachineDevice;
   voiceLine: VoiceLineDevice;
   waypoint: WaypointDevice;
@@ -2847,7 +2847,7 @@ export type DeviceTypeMap = {
   xp: XpDevice;
   zone: ZoneDevice;
 };
-export const defaultDeviceOptions: Record<string, Device["options"]> = {
+export const defaultDeviceOptions: Record<string, Device<any>["options"]> = {
   assignmentCheckpoint: {
     action: "set",
     actionValue: undefined,

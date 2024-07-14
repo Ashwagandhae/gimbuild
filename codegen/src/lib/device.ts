@@ -128,23 +128,27 @@ export type ItemIdOption = OptionBase & {
 
 export function generateDeviceTypes(deviceOptions: DeviceOptions): string {
   let out = `
-  import { DeviceBase, ChannelCodeGrid, Program, Color } from './basic';
+  import { DeviceBase, ChannelCodeGrid, Color } from './basic';
   `;
   let names = [];
   for (const device of deviceOptions) {
     let name = deviceTypeName(device);
+    let { out: deviceType, needsProgram } = generateDeviceType(device);
+    if (needsProgram) {
+      name = `${name}<Program>`;
+    }
     names.push([name, device.id]);
-    out += `export type ${name} = ${generateDeviceType(device)};\n`;
+    out += `export type ${name} = ${deviceType};\n`;
   }
-  out += `export type Device = ${names.map(([name, _]) => name).join(' | ')};`;
+  out += `export type Device<Program> = ${names.map(([name, _]) => name).join(' | ')};`;
 
-  out += `export type DeviceTypeMap = {`;
+  out += `export type DeviceTypeMap<Program> = {`;
   for (const [name, id] of names) {
     out += `'${id}': ${name},`;
   }
   out += `};`;
 
-  out += `export const defaultDeviceOptions: Record<string, Device['options']> = {`;
+  out += `export const defaultDeviceOptions: Record<string, Device<any>['options']> = {`;
   for (const device of deviceOptions) {
     out += `'${device.id}': ${generateDefaultDeviceOptions(device.optionSchema.options)},`;
   }
@@ -156,18 +160,27 @@ function deviceTypeName(device: DeviceOption) {
   return `${device.id[0]!.toUpperCase()}${device.id.slice(1)}Device`;
 }
 
-function generateDeviceType(device: DeviceOption): string {
+function generateDeviceType(device: DeviceOption): {
+  out: string;
+  needsProgram: boolean;
+} {
   let out = `DeviceBase & {
     type: '${device.id}';
     options: ${generateDeviceOptions(device)};`;
   let codeGrids = generateCodeGrids(device);
+  let needsProgram;
   if (codeGrids != null) {
     out += `codeGrids: ${codeGrids};`;
+    needsProgram = true;
   } else {
     out += `codeGrids: never[];`;
+    needsProgram = false;
   }
   out += '}';
-  return out;
+  return {
+    out,
+    needsProgram,
+  };
 }
 
 function generateDeviceOptions(device: DeviceOption): string {
@@ -218,7 +231,7 @@ function generateCodeGrids(device: DeviceOption): string | null {
     return generateCodeGridType(trigger);
   });
   if (device.codeGridSchema.allowChannelGrids) {
-    codeGridTypes.push('ChannelCodeGrid');
+    codeGridTypes.push('ChannelCodeGrid<Program>');
   }
   if (codeGridTypes.length === 0) {
     return null;

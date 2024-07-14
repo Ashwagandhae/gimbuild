@@ -4,9 +4,9 @@ export * from './generated';
 export * from './basic';
 
 export function getDefaultDeviceOptions(
-  id: keyof DeviceTypeMap
-): DeviceTypeMap[keyof DeviceTypeMap]['options'] {
+  id: keyof DeviceTypeMap<any>
+): DeviceTypeMap<any>[keyof DeviceTypeMap<any>]['options'] {
   return defaultDeviceOptions[
     id
-  ] as DeviceTypeMap[keyof DeviceTypeMap]['options'];
+  ] as DeviceTypeMap<any>[keyof DeviceTypeMap<any>]['options'];
 }

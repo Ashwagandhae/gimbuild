@@ -1,2 +1,3 @@
 # gimbuild
-A standardized way to programmatically create systems of Gimkit devices
+
+A standardized way to programmatically create Gimkit devices

@@ -1,7 +1,7 @@
 {
   "name": "gimbuild",
   "version": "0.0.1",
-  "description": "A standardized way to programmatically create systems of Gimkit devices",
+  "description": "A standardized way to programmatically create Gimkit devices",
   "author": "Ashwagandhae",
   "sideEffects": false,
   "type": "module",

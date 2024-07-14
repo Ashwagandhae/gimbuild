@@ -17541,22 +17541,26 @@ import { writeFileSync } from "fs";
 // src/lib/device.ts
 function generateDeviceTypes(deviceOptions2) {
   let out = `
-  import { DeviceBase, ChannelCodeGrid, Program, Color } from './basic';
+  import { DeviceBase, ChannelCodeGrid, Color } from './basic';
   `;
   let names = [];
   for (const device of deviceOptions2) {
     let name = deviceTypeName(device);
+    let { out: deviceType, needsProgram } = generateDeviceType(device);
+    if (needsProgram) {
+      name = `${name}<Program>`;
+    }
     names.push([name, device.id]);
-    out += `export type ${name} = ${generateDeviceType(device)};
+    out += `export type ${name} = ${deviceType};
 `;
   }
-  out += `export type Device = ${names.map(([name, _]) => name).join(" | ")};`;
-  out += `export type DeviceTypeMap = {`;
+  out += `export type Device<Program> = ${names.map(([name, _]) => name).join(" | ")};`;
+  out += `export type DeviceTypeMap<Program> = {`;
   for (const [name, id] of names) {
     out += `'${id}': ${name},`;
   }
   out += `};`;
-  out += `export const defaultDeviceOptions: Record<string, Device['options']> = {`;
+  out += `export const defaultDeviceOptions: Record<string, Device<any>['options']> = {`;
   for (const device of deviceOptions2) {
     out += `'${device.id}': ${generateDefaultDeviceOptions(device.optionSchema.options)},`;
   }
@@ -17571,13 +17575,19 @@ function generateDeviceType(device) {
     type: '${device.id}';
     options: ${generateDeviceOptions(device)};`;
   let codeGrids = generateCodeGrids(device);
+  let needsProgram;
   if (codeGrids != null) {
     out += `codeGrids: ${codeGrids};`;
+    needsProgram = true;
   } else {
     out += `codeGrids: never[];`;
+    needsProgram = false;
   }
   out += "}";
-  return out;
+  return {
+    out,
+    needsProgram
+  };
 }
 function generateDeviceOptions(device) {
   let out = "{";
@@ -17620,7 +17630,7 @@ function generateCodeGrids(device) {
     return generateCodeGridType(trigger);
   });
   if (device.codeGridSchema.allowChannelGrids) {
-    codeGridTypes.push("ChannelCodeGrid");
+    codeGridTypes.push("ChannelCodeGrid<Program>");
   }
   if (codeGridTypes.length === 0) {
     return null;
