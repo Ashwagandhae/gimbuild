@@ -43,8 +43,8 @@ let unbuilder = await GL.lib('Gimbuilder').build({
   ],
 });
 
-// unbuild the devices
+// remove the devices
 GL.lib('Gimbuilder').unbuild(unbuilder);
 ```
 
-See [gimbuild](https://github.com/Ashwagandhae/gimbuild/tree/main) for a more ergonomic way to create the JSON.
+See [gimbuild](https://github.com/Ashwagandhae/gimbuild/tree/main) for a more ergonomic way to create the build JSON.
