@@ -22,18 +22,14 @@ function getClipboardData() {
       });
   });
 }
-const buildCommand = new Set(['shift', 'b']);
-const unbuildCommand = new Set(['alt', 'b']);
-const replaceCommand = new Set(['alt', 'shift', 'b']);
+const buildCommand = new Set(['v']);
+const unbuildCommand = new Set(['x']);
 
 GL.hotkeys.add(buildCommand, build);
 GL.hotkeys.add(unbuildCommand, unbuild);
-GL.hotkeys.add(replaceCommand, async () => {
-  unbuild();
-  build();
-});
 
 async function build() {
+  console.log('building...');
   const clipboardData = await getClipboardData();
   let parsed;
   try {
@@ -55,16 +51,14 @@ async function build() {
 }
 
 async function unbuild() {
+  console.log('unbuilding...');
   if (window.gimbuilds.length === 0) {
     console.error('No gimbuilds to unbuild');
     return;
   }
-  let res = await GL.lib('Gimbuilder').unbuild(window.gimbuilds.pop());
-  if (res.ok) {
-    console.log('Gimbuild removed');
-  } else {
-    console.error(res.error);
-  }
+  let unbuilder = window.gimbuilds.pop();
+  console.log(unbuilder);
+  GL.lib('Gimbuilder').unbuild(unbuilder);
 }
 
 export function onStop() {
