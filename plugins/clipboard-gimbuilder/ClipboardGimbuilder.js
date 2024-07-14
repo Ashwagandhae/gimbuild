@@ -22,8 +22,8 @@ function getClipboardData() {
       });
   });
 }
-const buildCommand = new Set(['v']);
-const unbuildCommand = new Set(['x']);
+const buildCommand = new Set(['shift', 'v']);
+const unbuildCommand = new Set(['shift', 'x']);
 
 GL.hotkeys.add(buildCommand, build);
 GL.hotkeys.add(unbuildCommand, unbuild);
