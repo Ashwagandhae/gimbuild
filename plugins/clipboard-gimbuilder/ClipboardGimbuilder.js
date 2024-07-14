@@ -57,7 +57,6 @@ async function unbuild() {
     return;
   }
   let unbuilder = window.gimbuilds.pop();
-  console.log(unbuilder);
   GL.lib('Gimbuilder').unbuild(unbuilder);
 }
 
