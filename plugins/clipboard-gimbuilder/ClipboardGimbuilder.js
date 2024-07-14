@@ -7,8 +7,6 @@
  * @needsLib Gimbuilder | https://raw.githubusercontent.com/Ashwagandhae/gimbuild/main/plugins/gimbuilder/build/Gimbuilder.js
  */
 
-import { unbuild } from '../gimbuilder/src';
-
 window.gimbuilds = [];
 
 // get clipboard data
