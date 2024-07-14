@@ -42,10 +42,12 @@ const sendKeys = {
   input: 'INPUT',
 } as const;
 
-export let gimkitInternalSend: (
+export function gimkitInternalSend(
   A: (typeof sendKeys)[keyof typeof sendKeys],
   t: any
-) => void = GL.stores.network.room.send;
+): void {
+  GL.stores.network.room.send(A, t);
+}
 
 export type DeviceId = string & { readonly DeviceId: unique symbol };
 export function generateDeviceId(): DeviceId {

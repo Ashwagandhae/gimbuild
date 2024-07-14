@@ -5,7 +5,9 @@
  * @version 0.0.1
  * @isLibrary true
  */
-let gimkitInternalSend = GL.stores.network.room.send;
+function gimkitInternalSend(A, t) {
+    GL.stores.network.room.send(A, t);
+}
 function generateDeviceId() {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
     let uniqueId = '';
