@@ -4,5 +4,5 @@ Creates gimbuild builds from clipboard. [Install](https://thelazysquid.github.io
 
 ## Usage
 
-1. `v` to build from clipboard
-2. `x` to unbuild last build
+1. `shift` + `v` to build from clipboard
+2. `shift` + `x` to unbuild last build
