@@ -1476,4 +1476,4 @@ declare function transform(x?: number, y?: number): TransformBuilder;
 declare function device<T extends keyof DeviceTypeMap<Program>>(deviceType: T): DeviceBuilder<T>;
 declare function build(positionType: 'relative' | 'absolute'): BuildBuilder;
 
-export { Build, BuildBuilder, BuildBuilder$1 as BuildBuilderGeneric, Device, DeviceBuilder, DeviceBuilder$1 as DeviceBuilderGeneric, Transform, TransformBuilder, build, device, transform };
+export { Build, BuildBuilder, BuildBuilder$1 as BuildBuilderGeneric, Device, DeviceBuilder, DeviceBuilder$1 as DeviceBuilderGeneric, DeviceTypeMap, Transform, TransformBuilder, build, device, transform };

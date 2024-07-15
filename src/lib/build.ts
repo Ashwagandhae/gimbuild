@@ -1,5 +1,6 @@
 import type { Program } from 'gimblocks';
 import { DeviceTypeMap } from './device';
+export type { DeviceTypeMap } from './device';
 
 import {
   BuildBuilder as BuildBuilderGeneric,
