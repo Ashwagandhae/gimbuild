@@ -73,6 +73,6 @@ Outputs the following JSON:
 {"positionType":"absolute","devices":[{"type":"textBillboard","transform":{"x":16000,"y":16000},"options":{"text":"Hello","fontSize":20,"scope":"global","googleFont":"Rubik","color":"#FF0000","alpha":1,"strokeThickness":0,"strokeColor":"#FFFFFF","rotation":0,"visibleOnGameStart":"Yes","showWhenReceivingFrom":"","hideWhenReceivingFrom":""},"codeGrids":[]},{"type":"textBillboard","transform":{"x":16100,"y":16000},"options":{"text":"World","fontSize":20,"scope":"global","googleFont":"Fugaz One","color":"#00FF00","alpha":1,"strokeThickness":1,"strokeColor":"#0000FF","rotation":0,"visibleOnGameStart":"Yes","showWhenReceivingFrom":"","hideWhenReceivingFrom":""},"codeGrids":[]}]}
 ```
 
-You can install a plugin [ClipboardGimbuilder](https://github.com/Ashwagandhae/gimbuild/tree/main/plugins/clipboard-gimbuilder), copy the JSON, and type `shift` + `v` to create the build in creative:
+With the plugin [ClipboardGimbuilder](https://github.com/Ashwagandhae/gimbuild/tree/main/plugins/clipboard-gimbuilder) installed, you can copy the JSON and press `shift` + `v` to create the build in creative:
 
 <img src="images/helloworld.jpg" width=500/>
