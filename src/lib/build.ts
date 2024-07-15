@@ -12,6 +12,10 @@ export {
   BuildBuilder as BuildBuilderGeneric,
 } from './builder';
 import { Build as BuildGeneric, Device as DeviceGeneric } from './buildType';
+export type {
+  Build as BuildGeneric,
+  Device as DeviceGeneric,
+} from './buildType';
 
 export { TransformBuilder } from './builder';
 export type { Transform } from './buildType';
