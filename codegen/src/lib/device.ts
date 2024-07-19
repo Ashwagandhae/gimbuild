@@ -128,7 +128,7 @@ export type ItemIdOption = OptionBase & {
 
 export function generateDeviceTypes(deviceOptions: DeviceOptions): string {
   let out = `
-  import { DeviceBase, ChannelCodeGrid, Color } from './basic';
+  import { DeviceBase, ChannelCodeGrid, Color, DeviceOptions } from './basic';
   `;
   let names = [];
   for (const device of deviceOptions) {
@@ -153,6 +153,8 @@ export function generateDeviceTypes(deviceOptions: DeviceOptions): string {
     out += `'${device.id}': ${generateDefaultDeviceOptions(device.optionSchema.options)},`;
   }
   out += `};`;
+
+  out += `export const deviceOptions: DeviceOptions = ${JSON.stringify(deviceOptions)};`;
   return out;
 }
 

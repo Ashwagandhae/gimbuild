@@ -9,3 +9,5 @@ export type ChannelCodeGrid<Program> = {
 };
 
 export type Color = `#${string}`;
+
+export { type DeviceOptions } from '../../../codegen/src/lib/device';

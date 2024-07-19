@@ -17541,7 +17541,7 @@ import { writeFileSync } from "fs";
 // src/lib/device.ts
 function generateDeviceTypes(deviceOptions2) {
   let out = `
-  import { DeviceBase, ChannelCodeGrid, Color } from './basic';
+  import { DeviceBase, ChannelCodeGrid, Color, DeviceOptions } from './basic';
   `;
   let names = [];
   for (const device of deviceOptions2) {
@@ -17565,6 +17565,7 @@ function generateDeviceTypes(deviceOptions2) {
     out += `'${device.id}': ${generateDefaultDeviceOptions(device.optionSchema.options)},`;
   }
   out += `};`;
+  out += `export const deviceOptions: DeviceOptions = ${JSON.stringify(deviceOptions2)};`;
   return out;
 }
 function deviceTypeName(device) {

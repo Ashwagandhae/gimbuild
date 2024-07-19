@@ -1476,4 +1476,34 @@ declare function transform(x?: number, y?: number): TransformBuilder;
 declare function device<T extends keyof DeviceTypeMap<Program>>(deviceType: T): DeviceBuilder<T>;
 declare function build(positionType: 'relative' | 'absolute'): BuildBuilder;
 
-export { Build, BuildBuilder, BuildBuilder$1 as BuildBuilderGeneric, Build$1 as BuildGeneric, Device, DeviceBuilder, DeviceBuilder$1 as DeviceBuilderGeneric, Device$1 as DeviceGeneric, DeviceTypeMap, Transform, TransformBuilder, build, device, transform };
+type BuildInfo = {
+    deviceCounts: Partial<Record<keyof DeviceTypeMap<Program>, number>>;
+    memory: number;
+};
+declare function getInfo(build: Build): BuildInfo;
+
+type ValidationResult = {
+    type: 'success';
+} | {
+    type: 'error';
+    errorType: 'tooManyDevices';
+    deviceType: string;
+    maxOnMap: number;
+    actualOnMap: number;
+} | {
+    type: 'error';
+    errorType: 'memoryTooHigh';
+    memory: number;
+} | {
+    type: 'error';
+    errorType: 'tooManyCodeGrids';
+    device: Device;
+} | {
+    type: 'error';
+    errorType: 'tooManyBlocks';
+    device: Device;
+    codeGrid: Program;
+};
+declare function validate(build: Build): ValidationResult;
+
+export { Build, BuildBuilder, BuildBuilder$1 as BuildBuilderGeneric, Build$1 as BuildGeneric, BuildInfo, Device, DeviceBuilder, DeviceBuilder$1 as DeviceBuilderGeneric, Device$1 as DeviceGeneric, DeviceTypeMap, Transform, TransformBuilder, ValidationResult, build, device, getInfo, transform, validate };
