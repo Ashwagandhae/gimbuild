@@ -1,4 +1,4 @@
-import { countBlocks, countProgramBlocks, Program } from 'gimblocks';
+import { countProgramBlocks, Program } from 'gimblocks';
 import { Build, Device } from './build';
 import { BuildInfo, getInfo } from './info';
 import { deviceOptions } from './device';
